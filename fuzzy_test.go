@@ -50,7 +50,7 @@ func TestSpellingSuggestions(t *testing.T) {
 	model.SetThreshold(1)
 
 	// Train multiple words simultaneously
-	words := []string{"bob", "your", "uncle", "dynamite", "delicate", "biggest", "big", "bigger", "aunty", "you're", "bob", "your"}
+	words := []string{"bob", "your", "uncle", "dynamite", "delicate", "biggest", "big", "bigger", "aunty", "you're", "bob", "your", "double"}
 	model.Train(words)
 
 	// Check Spelling
@@ -77,6 +77,12 @@ func TestSpellingSuggestions(t *testing.T) {
 	}
 	if suggestions[1] != "biggest" && suggestions[1] != "big" {
 		t.Errorf("Spell check suggestions, Double char delete 2nd closest")
+	}
+
+	suggestions = model.SpellCheckSuggestions("dubble", 2)
+	t.Log(suggestions)
+	if suggestions[0] != "double" {
+		t.Errorf("Spell check suggestions, Single char delete is closest")
 	}
 }
 
@@ -158,6 +164,7 @@ func TestConcurrency(t *testing.T) {
 
 func TestColdInit(t *testing.T) {
 	model := NewModel()
+	model.SetUseAutocomplete(true)
 	_, err := model.Autocomplete("a")
 	if err != nil {
 		t.Errorf("Failed to init and autocomplete: %v", err)
@@ -343,6 +350,7 @@ func TestAccuracy(t *testing.T) {
 // Quick test to make sure we're picking up the right stuff
 func TestAutocomplete(t *testing.T) {
 	model := NewModel()
+	model.SetUseAutocomplete(true)
 	model.Train(sampleEnglish)
 	out, err := model.Autocomplete("accoun")
 	if err != nil {
@@ -366,6 +374,7 @@ func TestAutocomplete(t *testing.T) {
 func TestAutocompleteFromQueries(t *testing.T) {
 	model := NewModel()
 	// Changing defaults for testing only, this is not advisable on production
+	model.SetUseAutocomplete(true)
 	model.SetThreshold(1)
 	model.SetDivergenceThreshold(1)
 
