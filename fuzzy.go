@@ -16,12 +16,17 @@ import (
 )
 
 const (
-	SpellDepthDefault              = 2
-	SpellThresholdDefault          = 5
+	// SpellDepthDefault is the default spell depth
+	SpellDepthDefault = 2
+
+	// SpellThresholdDefault is the default spell threshold
+	SpellThresholdDefault = 5
+
+	// SuffDivergenceThresholdDefault is the default spell divergence threshold
 	SuffDivergenceThresholdDefault = 100
 )
 
-type Pair struct {
+type pair struct {
 	str1 string
 	str2 string
 }
@@ -363,9 +368,9 @@ func (model *Model) EditsMulti(term string, depth int) []string {
 // Edits1 creates a set of terms that are 1 char delete from the input term
 func Edits1(word string) []string {
 
-	splits := []Pair{}
+	splits := []pair{}
 	for i := 0; i <= len(word); i++ {
-		splits = append(splits, Pair{word[:i], word[i:]})
+		splits = append(splits, pair{word[:i], word[i:]})
 	}
 
 	total_set := []string{}

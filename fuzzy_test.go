@@ -71,10 +71,11 @@ func TestSpellingSuggestions(t *testing.T) {
 	}
 
 	suggestions := model.SpellCheckSuggestions("bigge", 2)
+	t.Log(suggestions)
 	if suggestions[0] != "bigger" {
 		t.Errorf("Spell check suggestions, Single char delete is closest")
 	}
-	if suggestions[1] != "biggest" {
+	if suggestions[1] != "biggest" && suggestions[1] != "big" {
 		t.Errorf("Spell check suggestions, Double char delete 2nd closest")
 	}
 }
