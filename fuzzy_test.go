@@ -385,8 +385,8 @@ func TestAutocompleteFromQueries(t *testing.T) {
 	}
 }
 
-func TestLoadOldModel(t *testing.T) {
+func TestLoadModel(t *testing.T) {
 	if _, err := Load("data/test.dict"); err != nil {
-		t.Errorf("Couldn't load old model format: %v", err)
+		t.Errorf("Couldn't load model format: %v", err)
 	}
 }
